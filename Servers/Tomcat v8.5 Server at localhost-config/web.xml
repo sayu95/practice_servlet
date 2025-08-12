@@ -14,7 +14,7 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
---><web-app version="5.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee                       https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd">
+--><web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee                       http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
 
   <!-- ======================== Introduction ============================== -->
   <!-- This document defines default values for *all* web applications      -->
@@ -25,11 +25,6 @@
   <!--                                                                      -->
   <!-- WARNING:  Do not configure application-specific resources here!      -->
   <!-- They should go in the "/WEB-INF/web.xml" file in your application.   -->
-
-
-  <!-- Set the default request and response character encodings to UTF-8.   -->
-  <request-character-encoding>UTF-8</request-character-encoding>
-  <response-character-encoding>UTF-8</response-character-encoding>
 
 
   <!-- ================== Built In Servlet Definitions ==================== -->
@@ -47,11 +42,6 @@
   <!--                                                                      -->
   <!--   fileEncoding        Encoding to be used to read static resources   -->
   <!--                       [platform default]                             -->
-  <!--                                                                      -->
-  <!--   useBomIfPresent     If a static file contains a byte order mark    -->
-  <!--                       (BOM), should this be used to determine the    -->
-  <!--                       file encoding in preference to fileEncoding.   -->
-  <!--                       [true]                                         -->
   <!--                                                                      -->
   <!--   input               Input buffer size (in bytes) when reading      -->
   <!--                       resources to be served.  [2048]                -->
@@ -104,13 +94,6 @@
   <!--   showServerInfo      Should server information be presented in the  -->
   <!--                       response sent to clients when directory        -->
   <!--                       listings is enabled? [true]                    -->
-  <!--                                                                      -->
-  <!--   allowPartialPut     Should the server treat an HTTP PUT request    -->
-  <!--                       with a Range header as a partial PUT? Note     -->
-  <!--                       that while RFC 7233 clarified that Range       -->
-  <!--                       headers only valid for GET requests, RFC 9110  -->
-  <!--                       (which obsoletes RFC 7233) now allows partial  -->
-  <!--                       puts. [true]                                   -->
 
     <servlet>
         <servlet-name>default</servlet-name>
@@ -150,9 +133,9 @@
   <!--                       pages.  See the jasper documentation for more  -->
   <!--                       information.                                   -->
   <!--                                                                      -->
-  <!--   compilerSourceVM    Compiler source VM. [1.8]                      -->
+  <!--   compilerSourceVM    Compiler source VM. [1.7]                      -->
   <!--                                                                      -->
-  <!--   compilerTargetVM    Compiler target VM. [1.8]                      -->
+  <!--   compilerTargetVM    Compiler target VM. [1.7]                      -->
   <!--                                                                      -->
   <!--   development         Is Jasper used in development mode? If true,   -->
   <!--                       the frequency at which JSPs are checked for    -->
@@ -175,8 +158,6 @@
   <!--   engineOptionsClass  Allows specifying the Options class used to    -->
   <!--                       configure Jasper. If not present, the default  -->
   <!--                       EmbeddedServletOptions will be used.           -->
-  <!--                       This option is ignored when running under a    -->
-  <!--                       SecurityManager.                               -->
   <!--                                                                      -->
   <!--   errorOnUseBeanInvalidClassAttribute                                -->
   <!--                       Should Jasper issue an error when the value of -->
@@ -192,8 +173,7 @@
   <!--                       arrays, to improve performance in some cases?  -->
   <!--                       [false]                                        -->
   <!--                                                                      -->
-  <!--   ieClassId           Deprecated. Will be removed in Tomcat 10.1     -->
-  <!--                       The class-id value to be sent to Internet      -->
+  <!--   ieClassId           The class-id value to be sent to Internet      -->
   <!--                       Explorer when using <jsp:plugin> tags.         -->
   <!--                       [clsid:8AD9C840-044E-11D1-B3E9-00805F499D93]   -->
   <!--                                                                      -->
@@ -239,20 +219,12 @@
   <!--   scratchdir          What scratch directory should we use when      -->
   <!--                       compiling JSP pages?  [default work directory  -->
   <!--                       for the current web application]               -->
-  <!--                       This option is ignored when running under a    -->
-  <!--                       SecurityManager.                               -->
   <!--                                                                      -->
   <!--   suppressSmap        Should the generation of SMAP info for JSR45   -->
   <!--                       debugging be suppressed?  [false]              -->
   <!--                                                                      -->
-  <!--   trimSpaces          Should template text that consists entirely of -->
-  <!--                       whitespace be removed from the output (true),  -->
-  <!--                       replaced with a single space (single) or left  -->
-  <!--                       unchanged (false)? Note that if a JSP page or  -->
-  <!--                       tag file specifies a trimDirectiveWhitespaces  -->
-  <!--                       value of true, that will take precedence over  -->
-  <!--                       this configuration setting for that page/tag.  -->
-  <!--                       [false]                                        -->
+  <!--   trimSpaces          Should white spaces in template text between   -->
+  <!--                       actions or directives be trimmed?  [false]     -->
   <!--                                                                      -->
   <!--   xpoweredBy          Determines whether X-Powered-By response       -->
   <!--                       header is added by generated servlet.  [false] -->
@@ -354,53 +326,25 @@
   <!--                        If not set, then webAppRootDir is used.       -->
   <!--                        Recommended value: WEB-INF/cgi                -->
   <!--                                                                      -->
-  <!--  cmdLineArgumentsDecoded                                             -->
-  <!--                        Only used when enableCmdLineArguments is      -->
-  <!--                        true. The pattern that individual decoded     -->
-  <!--                        command line arguments must match else the    -->
-  <!--                        request will be rejected. This is to          -->
-  <!--                        work-around various issues when Java passes   -->
-  <!--                        the arguments to the OS. See the CGI How-To   -->
-  <!--                        for more details. The default varies by       -->
-  <!--                        platform.                                     -->
-  <!--                        Windows: [[a-zA-Z0-9\Q-_.\\/:\E]+]            -->
-  <!--                        Others:  [.*]                                 -->
-  <!--                        Note that internally the CGI Servlet treats   -->
-  <!--                        [.*] as a special case to improve performance -->
-  <!--                                                                      -->
-  <!--   cmdLineArgumentsEncoded                                            -->
-  <!--                        Only used when enableCmdLineArguments is      -->
-  <!--                        true. The pattern that individual encoded     -->
-  <!--                        command line arguments must match else the    -->
-  <!--                        request will be rejected. The default matches -->
-  <!--                        the allowed values defined by RFC3875.        -->
-  <!--                        [[a-zA-Z0-9\Q%;/?:@&,$-_.!~*'()\E]+]          -->
-  <!--                                                                      -->
-  <!--   enableCmdLineArguments                                             -->
-  <!--                        Are command line parameters generated from    -->
-  <!--                        the query string as per section 4.4 of 3875   -->
-  <!--                        RFC? [false]                                  -->
+  <!--   debug                Debugging detail level for messages logged    -->
+  <!--                        by this servlet. Useful values range from 0   -->
+  <!--                        to 5 where 0 means no logging and 5 means     -->
+  <!--                        maximum logging. Values of 10 or more mean    -->
+  <!--                        maximum logging plus debug info added to the  -->
+  <!--                        HTTP response. If an error occurs and debug   -->
+  <!--                        is 10 or more the standard error page         -->
+  <!--                        mechanism will be disabled and a response     -->
+  <!--                        body with debug information will be produced. -->
+  <!--                        Note that any value of 10 or more has the     -->
+  <!--                        same effect as a value of 10. If set to 10 or -->
+  <!--                        more the standard error page mechanism will   -->
+  <!--                        be disabled and a debug page shown instead.   -->
+  <!--                        The debug page is not considered secure and   -->
+  <!--                        should not be enabled for production systems. -->
+  <!--                        [0]                                           -->
   <!--                                                                      -->
   <!--   executable           Name of the executable used to run the        -->
   <!--                        script. [perl]                                -->
-  <!--                                                                      -->
-  <!--   envHttpHeaders       A regular expression used to select the HTTP  -->
-  <!--                        headers passed to the CGI process as          -->
-  <!--                        environment variables. Note that headers are  -->
-  <!--                        converted to upper case before matching and   -->
-  <!--                        that the entire header name must match the    -->
-  <!--                        pattern.                                      -->
-  <!--                        [ACCEPT[-0-9A-Z]*|CACHE-CONTROL|COOKIE|HOST|  -->
-  <!--                         IF-[-0-9A-Z]*|REFERER|USER-AGENT]            -->
-  <!--                                                                      -->
-  <!--  environment-variable- An environment to be set for the execution    -->
-  <!--                        environment of the CGI script. The name of    -->
-  <!--                        variable is taken from the parameter name.    -->
-  <!--                        To configure an environment variable named    -->
-  <!--                        FOO, configure a parameter named              -->
-  <!--                        environment-variable-FOO. The parameter value -->
-  <!--                        is used as the environment variable value.    -->
-  <!--                        The default is no environment variables.      -->
   <!--                                                                      -->
   <!--   parameterEncoding    Name of parameter encoding to be used with    -->
   <!--                        CGI servlet.                                  -->
@@ -418,10 +362,14 @@
         <servlet-name>cgi</servlet-name>
         <servlet-class>org.apache.catalina.servlets.CGIServlet</servlet-class>
         <init-param>
+          <param-name>debug</param-name>
+          <param-value>0</param-value>
+        </init-param>
+        <init-param>
           <param-name>cgiPathPrefix</param-name>
           <param-value>WEB-INF/cgi</param-value>
         </init-param>
-        <load-on-startup>5</load-on-startup>
+         <load-on-startup>5</load-on-startup>
     </servlet>
 -->
 
@@ -546,7 +494,7 @@
   <!-- this to work you will need to uncomment the .shtml mime type         -->
   <!-- definition towards the bottom of this file.                          -->
   <!-- The contentType init param allows you to apply SSI processing to JSP -->
-  <!-- pages, JavaScript, or any other content you wish.  This filter       -->
+  <!-- pages, javascript, or any other content you wish.  This filter       -->
   <!-- supports the following initialization parameters (default values are -->
   <!-- in square brackets):                                                 -->
   <!--                                                                      -->
@@ -2930,7 +2878,7 @@
     </mime-mapping>
     <mime-mapping>
         <extension>otf</extension>
-        <mime-type>font/otf</mime-type>
+        <mime-type>application/x-font-otf</mime-type>
     </mime-mapping>
     <mime-mapping>
         <!-- OpenDocument Drawing Template -->
@@ -3969,11 +3917,11 @@
     </mime-mapping>
     <mime-mapping>
         <extension>ttc</extension>
-        <mime-type>font/collection</mime-type>
+        <mime-type>application/x-font-ttf</mime-type>
     </mime-mapping>
     <mime-mapping>
         <extension>ttf</extension>
-        <mime-type>font/ttf</mime-type>
+        <mime-type>application/x-font-ttf</mime-type>
     </mime-mapping>
     <mime-mapping>
         <extension>ttl</extension>
@@ -4256,10 +4204,6 @@
         <mime-type>application/x-doom</mime-type>
     </mime-mapping>
     <mime-mapping>
-        <extension>wasm</extension>
-        <mime-type>application/wasm</mime-type>
-    </mime-mapping>
-    <mime-mapping>
         <extension>wav</extension>
         <mime-type>audio/x-wav</mime-type>
     </mime-mapping>
@@ -4366,11 +4310,7 @@
     </mime-mapping>
     <mime-mapping>
         <extension>woff</extension>
-        <mime-type>font/woff</mime-type>
-    </mime-mapping>
-    <mime-mapping>
-        <extension>woff2</extension>
-        <mime-type>font/woff2</mime-type>
+        <mime-type>application/x-font-woff</mime-type>
     </mime-mapping>
     <mime-mapping>
         <extension>wpd</extension>
@@ -4662,6 +4602,10 @@
     </mime-mapping>
     <mime-mapping>
         <extension>z</extension>
+        <mime-type>application/x-compress</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>Z</extension>
         <mime-type>application/x-compress</mime-type>
     </mime-mapping>
     <mime-mapping>

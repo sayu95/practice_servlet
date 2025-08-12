@@ -39,7 +39,7 @@ grant codeBase "file:${java.home}/jre/lib/ext/-" {
         permission java.security.AllPermission;
 };
 
-// These permissions apply to javac when ${java.home} points at $JAVA_HOME/jre
+// These permissions apply to javac when ${java.home] points at $JAVA_HOME/jre
 grant codeBase "file:${java.home}/../lib/-" {
         permission java.security.AllPermission;
 };
@@ -50,14 +50,9 @@ grant codeBase "file:${java.home}/lib/ext/-" {
         permission java.security.AllPermission;
 };
 
-// This permission is required when using javac to compile JSPs on Java 9
-// onwards
-//grant codeBase "jrt:/jdk.compiler" {
-//        permission java.security.AllPermission;
-//};
-
 
 // ========== CATALINA CODE PERMISSIONS =======================================
+
 
 // These permissions apply to the daemon code
 grant codeBase "file:${catalina.home}/bin/commons-daemon.jar" {
@@ -77,7 +72,7 @@ grant codeBase "file:${catalina.home}/bin/tomcat-juli.jar" {
         permission java.io.FilePermission
          "${catalina.base}${file.separator}logs", "read, write";
         permission java.io.FilePermission
-         "${catalina.base}${file.separator}logs${file.separator}*", "read, write, delete";
+         "${catalina.base}${file.separator}logs${file.separator}*", "read, write";
 
         permission java.lang.RuntimePermission "shutdownHooks";
         permission java.lang.RuntimePermission "getClassLoader";
@@ -89,6 +84,7 @@ grant codeBase "file:${catalina.home}/bin/tomcat-juli.jar" {
 
         permission java.util.PropertyPermission "java.util.logging.config.class", "read";
         permission java.util.PropertyPermission "java.util.logging.config.file", "read";
+        permission java.util.PropertyPermission "org.apache.juli.AsyncLoggerPollInterval", "read";
         permission java.util.PropertyPermission "org.apache.juli.AsyncMaxRecordCount", "read";
         permission java.util.PropertyPermission "org.apache.juli.AsyncOverflowDropType", "read";
         permission java.util.PropertyPermission "org.apache.juli.ClassLoaderLogManager.debug", "read";
@@ -176,6 +172,20 @@ grant {
     permission java.lang.RuntimePermission
      "accessClassInPackage.org.apache.jasper.runtime.*";
 
+    // Precompiled JSPs need access to these system properties.
+    permission java.util.PropertyPermission
+     "org.apache.jasper.runtime.BodyContentImpl.LIMIT_BUFFER", "read";
+    permission java.util.PropertyPermission
+     "org.apache.el.parser.COERCE_TO_ZERO", "read";
+
+    // The cookie code needs these.
+    permission java.util.PropertyPermission
+     "org.apache.catalina.STRICT_SERVLET_COMPLIANCE", "read";
+    permission java.util.PropertyPermission
+     "org.apache.tomcat.util.http.ServerCookie.STRICT_NAMING", "read";
+    permission java.util.PropertyPermission
+     "org.apache.tomcat.util.http.ServerCookie.FWD_SLASH_IS_SEPARATOR", "read";
+
     // Applications using WebSocket need to be able to access these packages
     permission java.lang.RuntimePermission "accessClassInPackage.org.apache.tomcat.websocket";
     permission java.lang.RuntimePermission "accessClassInPackage.org.apache.tomcat.websocket.server";
@@ -183,9 +193,8 @@ grant {
 
 
 // The Manager application needs access to the following packages to support the
-// session display functionality. It also requires the custom Tomcat
-// DeployXmlPermission to enable the use of META-INF/context.xml
-// These settings support the following configurations:
+// session display functionality. These settings support the following
+// configurations:
 // - default CATALINA_HOME == CATALINA_BASE
 // - CATALINA_HOME != CATALINA_BASE, per instance Manager in CATALINA_BASE
 // - CATALINA_HOME != CATALINA_BASE, shared Manager in CATALINA_HOME
@@ -195,7 +204,6 @@ grant codeBase "file:${catalina.base}/webapps/manager/-" {
     permission java.lang.RuntimePermission "accessClassInPackage.org.apache.catalina.manager";
     permission java.lang.RuntimePermission "accessClassInPackage.org.apache.catalina.manager.util";
     permission java.lang.RuntimePermission "accessClassInPackage.org.apache.catalina.util";
-    permission org.apache.catalina.security.DeployXmlPermission "manager";
 };
 grant codeBase "file:${catalina.home}/webapps/manager/-" {
     permission java.lang.RuntimePermission "accessClassInPackage.org.apache.catalina";
@@ -203,22 +211,7 @@ grant codeBase "file:${catalina.home}/webapps/manager/-" {
     permission java.lang.RuntimePermission "accessClassInPackage.org.apache.catalina.manager";
     permission java.lang.RuntimePermission "accessClassInPackage.org.apache.catalina.manager.util";
     permission java.lang.RuntimePermission "accessClassInPackage.org.apache.catalina.util";
-    permission org.apache.catalina.security.DeployXmlPermission "manager";
 };
-
-// The Host Manager application needs the custom Tomcat DeployXmlPermission to
-// enable the use of META-INF/context.xml
-// These settings support the following configurations:
-// - default CATALINA_HOME == CATALINA_BASE
-// - CATALINA_HOME != CATALINA_BASE, per instance Host Manager in CATALINA_BASE
-// - CATALINA_HOME != CATALINA_BASE, shared Host Manager in CATALINA_HOME
-grant codeBase "file:${catalina.base}/webapps/host-manager/-" {
-    permission org.apache.catalina.security.DeployXmlPermission "host-manager";
-};
-grant codeBase "file:${catalina.home}/webapps/host-manager/-" {
-    permission org.apache.catalina.security.DeployXmlPermission "host-manager";
-};
-
 
 // You can assign additional permissions to particular web applications by
 // adding additional "grant" entries here, based on the code base for that
@@ -252,13 +245,3 @@ grant codeBase "file:${catalina.home}/webapps/host-manager/-" {
 //      permission java.net.SocketPermission "*.noaa.gov:80", "connect";
 // };
 
-// To grant permissions for web applications using packed WAR files, use the
-// Tomcat specific WAR url scheme.
-//
-// The permissions granted to the entire web application
-// grant codeBase "war:file:${catalina.base}/webapps/examples.war*/-" {
-// };
-//
-// The permissions granted to a specific JAR
-// grant codeBase "war:file:${catalina.base}/webapps/examples.war*/WEB-INF/lib/foo.jar" {
-// };
