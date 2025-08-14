@@ -11,4 +11,36 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.xhtml</welcome-file>
   </welcome-file-list>
+
+  <context-param> <!-- 모든 컨탠츠에서 사용 -->
+  	<param-name>imgDir</param-name>
+  	<param-value>/upload/img</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>testServerIP</param-name>
+  	<param-value>127.0.0.1</param-value>
+  </context-param>
+ <context-param>
+  	<param-name>realServerIP</param-name>
+  	<param-value>68.0.30.1</param-value>
+  </context-param>
+    
+  
+  <servlet>
+  	<servlet-name>servleEx</servlet-name>
+  	<jsp-file>/jspEx02.jsp</jsp-file>
+  	<init-param> <!-- 특정 컨탠츠에서 사용 -->
+  		<param-name>adminId</param-name>
+  		<param-value>admin</param-value>
+  	</init-param>
+  	<init-param>
+  		<param-name>adminPw</param-name>
+  		<param-value>1234</param-value>
+  	</init-param>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>servleEx</servlet-name>
+  	<url-pattern>/jspEx02.jsp</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
