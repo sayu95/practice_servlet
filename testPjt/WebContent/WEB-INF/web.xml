@@ -1,63 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
-  <display-name>testPjt</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.xhtml</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.xhtml</welcome-file>
-  </welcome-file-list>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+	<display-name>testPjt</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.xhtml</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.xhtml</welcome-file>
+	</welcome-file-list>
 
-  <context-param> <!-- 모든 컨탠츠에서 사용 -->
-  	<param-name>imgDir</param-name>
-  	<param-value>/upload/img</param-value>
-  </context-param>
-  <context-param>
-  	<param-name>testServerIP</param-name>
-  	<param-value>127.0.0.1</param-value>
-  </context-param>
- <context-param>
-  	<param-name>realServerIP</param-name>
-  	<param-value>68.0.30.1</param-value>
-  </context-param>
-    
-  <servlet>
-  	<servlet-name>servleEx</servlet-name>
-  	<jsp-file>/jspEx02.jsp</jsp-file>
-  	<init-param> <!-- 특정 컨탠츠에서 사용 -->
-  		<param-name>adminId</param-name>
-  		<param-value>admin</param-value>
-  	</init-param>
-  	<init-param>
-  		<param-name>adminPw</param-name>
-  		<param-value>1234</param-value>
-  	</init-param>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>servleEx</servlet-name>
-  	<url-pattern>/jspEx02.jsp</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-  	<servlet-name>ServletDataShare</servlet-name>
-  	<servlet-class>com.testPjt.ServletDataShare</servlet-class>
-  	<init-param> <!-- 특정 컨탠츠에서 사용 -->
-  		<param-name>adminId</param-name>
-  		<param-value>admin</param-value>
-  	</init-param>
-  	<init-param>
-  		<param-name>adminPw</param-name>
-  		<param-value>1234</param-value>
-  	</init-param>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>ServletDataShare</servlet-name>
-  	<url-pattern>/sds</url-pattern>
-  </servlet-mapping>
- 
-  
+	<!-- filter -->
+	<filter>
+		<filter-name>tempFilter</filter-name>
+		<filter-class>com.testPjt.filter.TempFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>tempFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<context-param> <!-- 모든 컨탠츠에서 사용 -->
+		<param-name>imgDir</param-name>
+		<param-value>/upload/img</param-value>
+	</context-param>
+	<context-param>
+		<param-name>testServerIP</param-name>
+		<param-value>127.0.0.1</param-value>
+	</context-param>
+	<context-param>
+		<param-name>realServerIP</param-name>
+		<param-value>68.0.30.1</param-value>
+	</context-param>
+
+	<servlet>
+		<servlet-name>servleEx</servlet-name>
+		<jsp-file>/jspEx02.jsp</jsp-file>
+		<init-param> <!-- 특정 컨탠츠에서 사용 -->
+			<param-name>adminId</param-name>
+			<param-value>admin</param-value>
+		</init-param>
+		<init-param>
+			<param-name>adminPw</param-name>
+			<param-value>1234</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>servleEx</servlet-name>
+		<url-pattern>/jspEx02.jsp</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ServletDataShare</servlet-name>
+		<servlet-class>com.testPjt.ServletDataShare</servlet-class>
+		<init-param> <!-- 특정 컨탠츠에서 사용 -->
+			<param-name>adminId</param-name>
+			<param-value>admin</param-value>
+		</init-param>
+		<init-param>
+			<param-name>adminPw</param-name>
+			<param-value>1234</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ServletDataShare</servlet-name>
+		<url-pattern>/sds</url-pattern>
+	</servlet-mapping>
+
 </web-app>
